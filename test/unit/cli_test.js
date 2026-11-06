@@ -60,6 +60,12 @@ describe('cli', function () {
     assert.throws(() => parseCommandLine(['--caps=network']), /not supported yet/)
   })
 
+  it('takes optional tool groups with --caps', function () {
+    assert.deepStrictEqual(parseCommandLine([]).caps, [])
+    assert.deepStrictEqual(parseCommandLine(['--caps', 'vision, PDF,storage']).caps, ['vision', 'pdf', 'storage'])
+    assert.throws(() => parseCommandLine(['--caps', 'telepathy']), /--caps takes vision, pdf, storage/)
+  })
+
   it('offers browser_evaluate only with --allow-evaluate', function () {
     assert.strictEqual(parseCommandLine([]).allowEvaluate, false)
     assert.strictEqual(parseCommandLine(['--allow-evaluate']).allowEvaluate, true)

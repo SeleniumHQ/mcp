@@ -28,6 +28,8 @@ const path = require('node:path')
 const { framePartOf, parseChecked, parseKey, resolveUploadPaths } = require('../../lib/tools/interact')
 const { formatRequest, isStatic } = require('../../lib/tools/bidi')
 const { formatResult } = require('../../lib/tools/evaluate')
+const { pdfPath } = require('../../lib/tools/pdf')
+const { domainMatches, formatCookie } = require('../../lib/tools/storage')
 const { Key, WebElement } = require('selenium-webdriver')
 
 /** Every tool offered by default, named as @playwright/mcp names them. */
@@ -69,15 +71,33 @@ describe('tools', function () {
     assert.ok(defaultTools.length <= MAX_DEFAULT_TOOLS, `${defaultTools.length} default tools`)
   })
 
+  it('offer each optional group only when --caps names it', function () {
+    const names = (caps) => allTools({ caps }).map((t) => t.name)
+    assert.ok(names(['vision']).includes('browser_mouse_click_xy'))
+    assert.ok(!names(['vision']).includes('browser_pdf_save'))
+    assert.ok(names(['pdf']).includes('browser_pdf_save'))
+    const storage = names(['storage'])
+    for (const prefix of ['cookie', 'localstorage', 'sessionstorage']) {
+      for (const verb of ['list', 'get', 'set', 'delete', 'clear']) {
+        assert.ok(storage.includes(`browser_${prefix}_${verb}`), `browser_${prefix}_${verb}`)
+      }
+    }
+    assert.strictEqual(names([]).length, DEFAULT_TOOLS.length)
+  })
+
   it('offer browser_evaluate only with --allow-evaluate', function () {
     const names = allTools({ allowEvaluate: true }).map((t) => t.name)
     assert.ok(names.includes('browser_evaluate'))
     assert.ok(!defaultTools.some((t) => t.name === 'browser_evaluate'))
   })
 
-  it('stay well inside the token budget', function () {
+  it('stay well inside the token budget unless optional groups are asked for', function () {
     const listed = JSON.stringify(
-      tools.map(({ name, description, inputSchema }) => ({ name, description, inputSchema })),
+      allTools({ allowEvaluate: true }).map(({ name, description, inputSchema }) => ({
+        name,
+        description,
+        inputSchema,
+      })),
     )
     // Roughly 4 characters per token for English and JSON; 3 to stay conservative.
     const tokens = Math.ceil(listed.length / 3)
@@ -173,6 +193,46 @@ describe('tools', function () {
 
     it('are cut when very long', function () {
       assert.match(formatResult('x'.repeat(30000)), /more characters cut/)
+    })
+  })
+
+  describe('pdfPath', function () {
+    let root
+
+    before(function () {
+      root = fs.mkdtempSync(path.join(os.tmpdir(), 'mcp-pdf-'))
+    })
+
+    after(function () {
+      fs.rmSync(root, { recursive: true, force: true })
+    })
+
+    it('writes to a fresh temp file when no name is given', function () {
+      const file = pdfPath(undefined, {}, root)
+      assert.ok(file.startsWith(path.join(os.tmpdir(), 'selenium-mcp')), file)
+      assert.match(file, /page-.*\.pdf$/)
+    })
+
+    it('resolves names against the working directory and keeps them inside it', function () {
+      assert.strictEqual(pdfPath('out.pdf', {}, root), path.join(fs.realpathSync(root), 'out.pdf'))
+      assert.throws(() => pdfPath('../out.pdf', {}, root), /outside the working directory/)
+      assert.ok(pdfPath('../out.pdf', { allowFileAccess: true }, root).endsWith('out.pdf'))
+      assert.throws(() => pdfPath('missing/out.pdf', {}, root), /No such directory/)
+    })
+  })
+
+  describe('cookies', function () {
+    it('formats a cookie on one line with its attributes', function () {
+      assert.strictEqual(
+        formatCookie({ name: 'sid', value: 'abc', domain: '.a.test', path: '/', httpOnly: true, sameSite: 'Lax' }),
+        'sid=abc (domain=.a.test, path=/, httpOnly, sameSite=Lax)',
+      )
+    })
+
+    it('matches domains with or without the leading dot', function () {
+      assert.ok(domainMatches('.a.test', 'a.test'))
+      assert.ok(domainMatches('A.test', '.a.test'))
+      assert.ok(!domainMatches('b.a.test', 'a.test'))
     })
   })
 
