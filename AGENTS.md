@@ -2,19 +2,21 @@
 
 ## Code location
 
-- Server: `javascript/selenium-mcp/lib/`
+- Server: `lib/`
   - `server.js`: MCP server and tool registration
   - `session.js`: browser lifecycle, options, Grid URL, console capture over BiDi
   - `snapshot.js`: the in-page accessibility walk and the ref table
   - `tools/`: one file per tool group (`navigate`, `interact`, `inspect`, `bidi`)
-- CLI: `javascript/selenium-mcp/bin/selenium-mcp.js`, flags parsed in `lib/cli.js`
-- Tests: `test/unit/` (no browser, jsdom) and `test/e2e/` (real browser, in-memory MCP client)
+- CLI: `bin/selenium-mcp.js`, flags parsed in `lib/cli.js`
+- Tests: `test/unit/` (no browser) and `test/e2e/` (real browser, in-memory MCP client). `test/fixtures/common/`
+  holds copies of pages from the Selenium bindings' shared test pages.
 
 ## Common commands
 
-- Unit tests: `bazel test //javascript/selenium-mcp:small-tests`
-- Browser tests: `bazel test //javascript/selenium-mcp:e2e-tests-chrome`
-- Lint: `bazel test //javascript/selenium-mcp:eslint-test //javascript/selenium-mcp:prettier-test`
+- Install: `NODE_AUTH_TOKEN=<token with read:packages> npm install` (see `.npmrc`)
+- Unit tests: `npm run test:unit`
+- Browser tests: `npm run test:e2e` (needs Chrome)
+- Lint: `npm run lint`; fix formatting with `npm run format`
 
 ## Rules for tools
 
@@ -29,7 +31,8 @@
 
 ## Code conventions
 
-Follow `javascript/selenium-webdriver/AGENTS.md` for logging (`selenium-webdriver/lib/logging`, logger names under
+Follow selenium-webdriver's
+[AGENTS.md](https://github.com/SeleniumHQ/selenium/blob/trunk/javascript/selenium-webdriver/AGENTS.md) for logging (`selenium-webdriver/lib/logging`, logger names under
 `selenium.mcp.`), deprecation and JSDoc.
 
 `collectNodes` in `lib/snapshot.js` runs inside the page and is serialized with `Function#toString`: it must not use

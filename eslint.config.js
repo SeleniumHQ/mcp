@@ -15,7 +15,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-// Mirrors javascript/selenium-webdriver/eslint.config.js so both packages read the same.
+// Mirrors selenium-webdriver's eslint.config.js so both packages read the same.
 const globals = require('globals')
 const noOnlyTests = require('eslint-plugin-no-only-tests')
 const js = require('@eslint/js')
@@ -46,9 +46,6 @@ module.exports = [
     rules: {
       'no-unused-vars': ['error', { varsIgnorePattern: '^_', args: 'all', argsIgnorePattern: '^_' }],
       'no-only-tests/no-only-tests': 'error',
-      // selenium-webdriver comes from the workspace, and is added to the published package.json at release.
-      'n/no-extraneous-require': ['error', { allowModules: ['selenium-webdriver'] }],
-      'n/no-missing-require': ['error', { allowModules: ['selenium-webdriver'] }],
       'n/no-unpublished-require': 'off',
       'n/hashbang': 'off',
       'mocha/no-mocha-arrows': 'off',

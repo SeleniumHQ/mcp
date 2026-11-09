@@ -244,9 +244,8 @@ describe('selenium-mcp tools', function () {
   })
 
   describe('drag, upload and resize', function () {
-    // Bazel runfiles can be symlinks whose real path is outside the working
-    // directory, which the upload tool refuses, so these tests run from a
-    // temporary directory that holds real copies of the fixtures.
+    // The upload tool only sends files inside the working directory, so these
+    // tests run from a temporary directory that holds copies of the fixtures.
     let originalCwd
     let workDir
 

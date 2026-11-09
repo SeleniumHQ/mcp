@@ -124,16 +124,18 @@ Chrome, headless, stdio, and the tools above. Not yet: Firefox and Edge under te
 
 ## Development
 
-The server lives in the Selenium monorepo so it is built, tested and released with the bindings at the same version.
+The server depends on `getAccessibilitySnapshot()`, which first ships in `selenium-webdriver` 4.53.0. Until that is on
+npm, the dependency points at the nightly build in GitHub Packages, so installing needs a GitHub token with
+`read:packages`:
 
 ```sh
-bazel test //javascript/selenium-mcp:small-tests        # unit tests, no browser
-bazel test //javascript/selenium-mcp:e2e-tests-chrome   # every tool against real Chrome
-bazel test //javascript/selenium-mcp:eslint-test //javascript/selenium-mcp:prettier-test
-bazel build //javascript/selenium-mcp                    # the npm package
+NODE_AUTH_TOKEN=<token> npm install
+npm run test:unit   # unit tests, no browser
+npm run test:e2e    # every tool against real Chrome
+npm run lint        # eslint and prettier
 ```
 
-See [AGENTS.md](AGENTS.md) for conventions.
+See [AGENTS.md](AGENTS.md) for conventions and [CONTRIBUTING.md](CONTRIBUTING.md) for how to send a change.
 
 ## Credits
 

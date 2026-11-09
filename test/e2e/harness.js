@@ -27,9 +27,12 @@ const { InMemoryTransport } = require('@modelcontextprotocol/sdk/inMemory.js')
 const { createServer } = require('../../lib/server')
 const { Session } = require('../../lib/session')
 
-/** The bindings' shared test pages, plus a few pages of our own. */
+/**
+ * Our own pages, plus copies of a few of the Selenium bindings' shared test
+ * pages (common/src/web in SeleniumHQ/selenium) under /common/.
+ */
 const ROOTS = {
-  '/common/': path.resolve(__dirname, '../../../../common/src/web'),
+  '/common/': path.resolve(__dirname, '../fixtures/common'),
   '/fixtures/': path.resolve(__dirname, '../fixtures'),
 }
 
@@ -110,54 +113,15 @@ async function startMcp(overrides = {}) {
   }
 }
 
-/**
- * Resolves a path from the environment, which under Bazel is relative to the
- * runfiles tree.
- */
 function locate(file) {
-  if (fs.existsSync(file)) return file
-  // An absolute or relative path that does not exist is a typo, not a runfile.
-  const found = path.isAbsolute(file) || file.startsWith('.') ? null : locateInRunfiles(file)
-  if (!found) throw new Error(`Unable to find ${file}`)
-  return found
-}
-
-function locateInRunfiles(file) {
-  let runfiles
-  try {
-    runfiles = require('@bazel/runfiles').runfiles
-  } catch {
-    return null
-  }
-  for (const resolve of [(f) => runfiles.resolve(f), (f) => runfiles.resolveWorkspaceRelative(f)]) {
-    try {
-      return resolve(file)
-    } catch {
-      // try the next way
-    }
-  }
-  // Pinned browsers live in external repos (e.g. linux_chrome/...), whose
-  // runfiles directory is the repo's canonical name, so map the first segment
-  // as selenium-webdriver/testing does.
-  try {
-    const mapping = {}
-    for (const line of fs.readFileSync(runfiles.resolve('_repo_mapping'), 'utf8').split('\n')) {
-      if (line.startsWith(',')) {
-        const [, apparent, canonical] = line.split(',', 3)
-        mapping[apparent] = canonical
-      }
-    }
-    const [repo, ...rest] = file.split('/')
-    return runfiles.resolve([mapping[repo] || '_main', ...rest].join('/'))
-  } catch {
-    return null
-  }
+  if (!fs.existsSync(file)) throw new Error(`Unable to find ${file}`)
+  return file
 }
 
 /**
- * Points the session at the browser and driver the build provides
- * (SE_CHROME, SE_CHROMEDRIVER, as for the bindings' own browser tests), so CI
- * does not depend on Selenium Manager downloads. Locally,
+ * Points the session at a pinned browser and driver (SE_CHROME,
+ * SE_CHROMEDRIVER, as for the bindings' own browser tests) when they are set.
+ * Locally,
  * SELENIUM_MCP_TEST_CHROMEDRIVER names a chromedriver to use even when its
  * version lags the installed Chrome.
  */
