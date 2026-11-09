@@ -51,6 +51,7 @@ Any other MCP client: run `npx @selenium/mcp@latest` as a stdio server.
 | `--blocked-origins <list>` | Semicolon-separated origins or hosts it may not navigate to.            |
 | `--allow-unrestricted-file-access` | Let `browser_navigate` open `file://` URLs, and `browser_file_upload` send files from outside the working directory (both blocked by default). |
 | `--allow-evaluate`         | Offer `browser_evaluate`, which runs JavaScript the agent writes in the page. |
+| `--caps <list>`            | Comma-separated optional tool groups: `vision`, `pdf`, `storage`. See [Optional tools](#optional-tools). |
 | `--log-level <level>`      | Log to stderr: `severe`, `warning` (default), `info`, `fine`, `all`. `all` includes raw WebDriver traffic, so typed text such as passwords. |
 
 Flag names match `@playwright/mcp` wherever they mean the same thing.
@@ -86,6 +87,16 @@ over.
 
 Every action returns the page's URL, title and a fresh snapshot, so the agent rarely needs to ask for one.
 
+### Optional tools
+
+Each group is listed only when `--caps` names it, since every agent pays for every listed tool on every turn.
+
+| Group     | Tools                                                                                               |
+| --------- | --------------------------------------------------------------------------------------------------- |
+| `vision`  | `browser_mouse_move_xy`, `browser_mouse_click_xy`, `browser_mouse_drag_xy`, `browser_mouse_down`, `browser_mouse_up`, `browser_mouse_wheel`: the mouse by viewport coordinates, as read from a screenshot. |
+| `pdf`     | `browser_pdf_save`: save the page as a PDF. Without a file name it goes to a new file in the temp directory; a name must be inside the working directory unless `--allow-unrestricted-file-access` is given. |
+| `storage` | `browser_cookie_*`, `browser_localstorage_*` and `browser_sessionstorage_*`, each with `list`, `get`, `set`, `delete` and `clear`, for the current page. |
+
 ### Snapshots and refs
 
 ```
@@ -107,9 +118,9 @@ Every action returns the page's URL, title and a fresh snapshot, so the agent ra
 
 ## What it covers
 
-Chrome, headless, stdio, and the tools above. Not yet: Firefox and Edge under test, the opt-in tool groups behind
-`--caps` (request interception, storage, coordinates, PDF), HTTP transport, more than one session, and the
-`selenium_*` tools (Grid status, `selenium_doctor`). Those come in later releases.
+Chrome, headless, stdio, and the tools above. Not yet: Firefox and Edge under test, request interception
+(`--caps network`), HTTP transport, more than one session, and the `selenium_*` tools (Grid status,
+`selenium_doctor`). Those come in later releases.
 
 ## Security
 
@@ -121,6 +132,7 @@ Chrome, headless, stdio, and the tools above. Not yet: Firefox and Edge under te
 - `--allowed-origins` and `--blocked-origins` restrict where `browser_navigate` can go. They do not stop links,
   redirects or scripts on a page from going elsewhere, so they are not a browser-wide security boundary.
 - Snapshots, screenshots, console messages and request URLs and statuses are the only page data returned by default.
+  `--caps storage` also returns cookie and Web Storage values, which can include session tokens.
 
 ## Development
 
