@@ -46,7 +46,8 @@ Any other MCP client: run `npx @selenium/mcp@latest` as a stdio server.
 | -------------------------- | ----------------------------------------------------------------------- |
 | `--browser <name>`         | `chrome` (default). `edge` and `firefox` start but are not yet tested.  |
 | `--headless` / `--headed`  | Run headless (the default) or show the window.                          |
-| `--grid <url>`             | Run the browser on a Selenium Grid instead of locally.                  |
+| `--grid <url\|name>`       | Run the browser on a Selenium Grid instead of locally: a URL, or a Grid saved in the config file. |
+| `--config <path>`          | Config file of saved Grids (see [Selenium Grid](#selenium-grid)).      |
 | `--allowed-origins <list>` | Semicolon-separated origins or hosts (`*.example.com`) the browser may navigate to. |
 | `--blocked-origins <list>` | Semicolon-separated origins or hosts it may not navigate to.            |
 | `--allow-unrestricted-file-access` | Let `browser_navigate` open `file://` URLs, and `browser_file_upload` send files from outside the working directory (both blocked by default). |
@@ -86,6 +87,16 @@ over.
 
 Every action returns the page's URL, title and a fresh snapshot, so the agent rarely needs to ask for one.
 
+These read a Selenium Grid (see [Selenium Grid](#selenium-grid)):
+
+| Tool                       | What it does                                                         |
+| -------------------------- | -------------------------------------------------------------------- |
+| `selenium_grid_use`        | Save a Grid by URL, or pick a saved one, as the default.             |
+| `selenium_grid_status`     | Readiness, nodes and free slots per browser; one node in detail.     |
+| `selenium_grid_sessions`   | Running sessions, longest first, with links to them in the Grid UI.  |
+| `selenium_grid_queue`      | Waiting session requests, with a hint at why each waits.             |
+| `selenium_grid_bug_report` | A summary to paste into an issue, without URLs or ids.               |
+
 ### Snapshots and refs
 
 ```
@@ -105,11 +116,41 @@ Every action returns the page's URL, title and a fresh snapshot, so the agent ra
 - Content inside an iframe gets refs prefixed with the frame's own ref (`f5e1`), and tools act on them directly.
 - Password values are never shown.
 
+## Selenium Grid
+
+The server can run its browser on a [Selenium Grid](https://www.selenium.dev/documentation/grid/) and tell an agent
+what a Grid is doing. When the person names a Grid, the agent calls `selenium_grid_use`, which checks the Grid answers
+and saves it as the default, so nobody is asked again. Browsers then start on that Grid, and the `selenium_grid_*`
+tools read it. `--grid` on the command line still decides where browsers start for that run.
+
+Saved Grids live in the first of these that applies, and are saved back to it:
+
+1. `--config <path>`
+2. the `SELENIUM_MCP_CONFIG` environment variable
+3. `.selenium-mcp.json` in the working directory, if it exists
+4. `~/.config/selenium-mcp/config.json` (or under `$XDG_CONFIG_HOME`)
+
+```json
+{
+  "defaultGrid": "staging",
+  "grids": {
+    "local": { "url": "http://localhost:4444" },
+    "staging": { "url": "https://grid.staging.example.com" }
+  }
+}
+```
+
+The Grid tools only read. Ending sessions, draining or removing nodes and clearing the queue are left to the person,
+on their Grid; `selenium_grid_sessions` gives each session's link in the Grid UI. The server assumes a Grid is
+protected by its own network or auth: it saves no credentials, and refuses a URL with a user name or password in it
+(one given to `--grid` is used for that run only). Browsers it starts on a Grid are named `selenium-mcp` (`se:name`),
+so people can tell them apart in the Grid UI.
+
 ## What it covers
 
 Chrome, headless, stdio, and the tools above. Not yet: Firefox and Edge under test, the opt-in tool groups behind
-`--caps` (request interception, storage, coordinates, PDF), HTTP transport, more than one session, and the
-`selenium_*` tools (Grid status, `selenium_doctor`). Those come in later releases.
+`--caps` (request interception, storage, coordinates, PDF), HTTP transport, more than one session, and
+`selenium_doctor`. Those come in later releases.
 
 ## Security
 

@@ -44,9 +44,16 @@ describe('cli', function () {
     assert.throws(() => parseCommandLine(['--browser', 'netscape']), /must be one of/)
   })
 
-  it('takes a Grid URL and checks it', function () {
+  it('takes a Grid URL or a saved Grid name and checks it', function () {
     assert.strictEqual(parseCommandLine(['--grid', 'http://grid:4444']).grid, 'http://grid:4444')
-    assert.throws(() => parseCommandLine(['--grid', 'not a url']), /must be a URL/)
+    assert.strictEqual(parseCommandLine(['--grid', 'staging']).grid, 'staging')
+    assert.throws(() => parseCommandLine(['--grid', 'not a url']), /must be a URL or a saved Grid's name/)
+    assert.throws(() => parseCommandLine(['--grid', 'http://']), /must be a URL/)
+  })
+
+  it('takes a config file path', function () {
+    assert.strictEqual(parseCommandLine([]).configPath, undefined)
+    assert.strictEqual(parseCommandLine(['--config', 'grids.json']).configPath, 'grids.json')
   })
 
   it('splits origin lists on semicolons', function () {

@@ -1,0 +1,41 @@
+{
+  "data": {
+    "grid": {
+      "version": "4.52.0 (revision 5b37fd4 5b37fd4d98c08d6a43a0790417f91b8f6f32fb5c)",
+      "sessionCount": 4,
+      "sessionQueueSize": 0
+    },
+    "sessionsInfo": {
+      "sessions": [
+        {
+          "id": "26aac58b7ac337945a59f967e13c009e",
+          "capabilities": "{\n  \"acceptInsecureCerts\": false,\n  \"browserName\": \"chrome\",\n  \"browserVersion\": \"153.0.8010.12\",\n  \"chrome\": {\n    \"chromedriverVersion\": \"147.0.7727.24 (09d377d9438dc95267369f74a073acd81bdde38f-refs\\u002fbranch-heads\\u002f7727@{#1413})\",\n    \"userDataDir\": \"\\u002ftmp\\u002forg.chromium.Chromium.scoped_dir.ZBir52\"\n  },\n  \"fedcm:accounts\": true,\n  \"goog:chromeOptions\": {\n    \"debuggerAddress\": \"localhost:34085\"\n  },\n  \"goog:processID\": 1024,\n  \"networkConnectionEnabled\": false,\n  \"pageLoadStrategy\": \"normal\",\n  \"platformName\": \"linux\",\n  \"proxy\": {\n  },\n  \"se:bidiEnabled\": false,\n  \"se:cdp\": \"ws:\\u002f\\u002flocalhost:4444\\u002fsession\\u002f26aac58b7ac337945a59f967e13c009e\\u002fse\\u002fcdp\",\n  \"se:cdpVersion\": \"153.0.8010.12\",\n  \"setWindowRect\": true,\n  \"strictFileInteractability\": false,\n  \"timeouts\": {\n    \"implicit\": 0,\n    \"pageLoad\": 300000,\n    \"script\": 30000\n  },\n  \"unhandledPromptBehavior\": \"dismiss and notify\",\n  \"webauthn:extension:credBlob\": true,\n  \"webauthn:extension:largeBlob\": true,\n  \"webauthn:extension:minPinLength\": true,\n  \"webauthn:extension:prf\": true,\n  \"webauthn:virtualAuthenticators\": true\n}",
+          "startTime": "17/11/2026 12:03:45",
+          "nodeId": "a0c2c542-476f-42c5-96b7-c5f9f848579d",
+          "sessionDurationMillis": "196513"
+        },
+        {
+          "id": "5b56b4d899078f6937edfb60e920c75f",
+          "capabilities": "{\n  \"acceptInsecureCerts\": false,\n  \"browserName\": \"chrome\",\n  \"browserVersion\": \"153.0.8010.12\",\n  \"chrome\": {\n    \"chromedriverVersion\": \"147.0.7727.24 (09d377d9438dc95267369f74a073acd81bdde38f-refs\\u002fbranch-heads\\u002f7727@{#1413})\",\n    \"userDataDir\": \"\\u002ftmp\\u002forg.chromium.Chromium.scoped_dir.dUGash\"\n  },\n  \"fedcm:accounts\": true,\n  \"goog:chromeOptions\": {\n    \"debuggerAddress\": \"localhost:43481\"\n  },\n  \"goog:processID\": 691,\n  \"networkConnectionEnabled\": false,\n  \"pageLoadStrategy\": \"normal\",\n  \"platformName\": \"linux\",\n  \"proxy\": {\n  },\n  \"se:bidiEnabled\": false,\n  \"se:cdp\": \"ws:\\u002f\\u002flocalhost:4444\\u002fsession\\u002f5b56b4d899078f6937edfb60e920c75f\\u002fse\\u002fcdp\",\n  \"se:cdpVersion\": \"153.0.8010.12\",\n  \"se:name\": \"probe\",\n  \"setWindowRect\": true,\n  \"strictFileInteractability\": false,\n  \"timeouts\": {\n    \"implicit\": 0,\n    \"pageLoad\": 300000,\n    \"script\": 30000\n  },\n  \"unhandledPromptBehavior\": \"dismiss and notify\",\n  \"webauthn:extension:credBlob\": true,\n  \"webauthn:extension:largeBlob\": true,\n  \"webauthn:extension:minPinLength\": true,\n  \"webauthn:extension:prf\": true,\n  \"webauthn:virtualAuthenticators\": true\n}",
+          "startTime": "17/11/2026 12:02:34",
+          "nodeId": "a0c2c542-476f-42c5-96b7-c5f9f848579d",
+          "sessionDurationMillis": "266971"
+        },
+        {
+          "id": "19577c8d5d20e0ddd692a2ac0c5ecb7d",
+          "capabilities": "{\n  \"acceptInsecureCerts\": false,\n  \"browserName\": \"chrome\",\n  \"browserVersion\": \"153.0.8010.12\",\n  \"chrome\": {\n    \"chromedriverVersion\": \"147.0.7727.24 (09d377d9438dc95267369f74a073acd81bdde38f-refs\\u002fbranch-heads\\u002f7727@{#1413})\",\n    \"userDataDir\": \"\\u002ftmp\\u002forg.chromium.Chromium.scoped_dir.14wQ33\"\n  },\n  \"fedcm:accounts\": true,\n  \"goog:chromeOptions\": {\n    \"debuggerAddress\": \"localhost:36205\"\n  },\n  \"goog:processID\": 1171,\n  \"networkConnectionEnabled\": false,\n  \"pageLoadStrategy\": \"normal\",\n  \"platformName\": \"linux\",\n  \"proxy\": {\n  },\n  \"se:bidiEnabled\": false,\n  \"se:cdp\": \"ws:\\u002f\\u002flocalhost:4444\\u002fsession\\u002f19577c8d5d20e0ddd692a2ac0c5ecb7d\\u002fse\\u002fcdp\",\n  \"se:cdpVersion\": \"153.0.8010.12\",\n  \"setWindowRect\": true,\n  \"strictFileInteractability\": false,\n  \"timeouts\": {\n    \"implicit\": 0,\n    \"pageLoad\": 300000,\n    \"script\": 30000\n  },\n  \"unhandledPromptBehavior\": \"dismiss and notify\",\n  \"webauthn:extension:credBlob\": true,\n  \"webauthn:extension:largeBlob\": true,\n  \"webauthn:extension:minPinLength\": true,\n  \"webauthn:extension:prf\": true,\n  \"webauthn:virtualAuthenticators\": true\n}",
+          "startTime": "17/11/2026 12:03:46",
+          "nodeId": "e25013a9-5bf0-4ca8-8209-f1a4decd0518",
+          "sessionDurationMillis": "195754"
+        },
+        {
+          "id": "02ac43d474af89a39764794c423cb912",
+          "capabilities": "{\n  \"acceptInsecureCerts\": false,\n  \"browserName\": \"chrome\",\n  \"browserVersion\": \"153.0.8010.12\",\n  \"chrome\": {\n    \"chromedriverVersion\": \"147.0.7727.24 (09d377d9438dc95267369f74a073acd81bdde38f-refs\\u002fbranch-heads\\u002f7727@{#1413})\",\n    \"userDataDir\": \"\\u002ftmp\\u002forg.chromium.Chromium.scoped_dir.oQr5JM\"\n  },\n  \"fedcm:accounts\": true,\n  \"goog:chromeOptions\": {\n    \"debuggerAddress\": \"localhost:37679\"\n  },\n  \"goog:processID\": 1170,\n  \"networkConnectionEnabled\": false,\n  \"pageLoadStrategy\": \"normal\",\n  \"platformName\": \"linux\",\n  \"proxy\": {\n  },\n  \"se:bidiEnabled\": false,\n  \"se:cdp\": \"ws:\\u002f\\u002flocalhost:4444\\u002fsession\\u002f02ac43d474af89a39764794c423cb912\\u002fse\\u002fcdp\",\n  \"se:cdpVersion\": \"153.0.8010.12\",\n  \"setWindowRect\": true,\n  \"strictFileInteractability\": false,\n  \"timeouts\": {\n    \"implicit\": 0,\n    \"pageLoad\": 300000,\n    \"script\": 30000\n  },\n  \"unhandledPromptBehavior\": \"dismiss and notify\",\n  \"webauthn:extension:credBlob\": true,\n  \"webauthn:extension:largeBlob\": true,\n  \"webauthn:extension:minPinLength\": true,\n  \"webauthn:extension:prf\": true,\n  \"webauthn:virtualAuthenticators\": true\n}",
+          "startTime": "17/11/2026 12:03:46",
+          "nodeId": "e25013a9-5bf0-4ca8-8209-f1a4decd0518",
+          "sessionDurationMillis": "195760"
+        }
+      ]
+    }
+  }
+}
