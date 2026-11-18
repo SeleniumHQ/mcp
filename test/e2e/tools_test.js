@@ -483,6 +483,98 @@ describe('selenium-mcp tools', function () {
     })
   })
 
+  describe('optional groups', function () {
+    let caps
+
+    before(async function () {
+      caps = await startMcp({ caps: ['vision', 'pdf', 'storage'] })
+    })
+
+    after(async function () {
+      if (caps) await caps.close()
+    })
+
+    async function capOk(name, args) {
+      const result = await caps.call(name, args)
+      assert.ok(!result.isError, `${name} failed: ${result.text}`)
+      return result.text
+    }
+
+    it('are listed only when --caps asks for them', async function () {
+      const names = (await caps.client.listTools()).tools.map((t) => t.name)
+      assert.ok(names.includes('browser_mouse_click_xy'))
+      assert.ok(names.includes('browser_pdf_save'))
+      assert.ok(names.includes('browser_cookie_list'))
+      const unknown = await mcp.call('browser_mouse_click_xy', { x: 1, y: 1 })
+      assert.match(unknown.text, /Unknown tool/)
+    })
+
+    it('moves, clicks, double clicks and drags by coordinates', async function () {
+      await capOk('browser_navigate', { url: pages.url('/fixtures/vision.html') })
+      assert.match(await capOk('browser_mouse_move_xy', { x: 50, y: 60 }), /status "over 50,60"/)
+      assert.match(
+        await capOk('browser_mouse_click_xy', { x: 70, y: 80 }),
+        /status "down 70,80; up 70,80; click 0 70,80"/,
+      )
+      assert.match(await capOk('browser_mouse_click_xy', { x: 70, y: 80, clickCount: 2 }), /dblclick 70,80"/)
+      assert.match(
+        await capOk('browser_mouse_drag_xy', { startX: 10, startY: 20, endX: 110, endY: 120 }),
+        /status "down 10,20; up 110,120; click 0 110,120"/,
+      )
+    })
+
+    it('presses and releases where the mouse is, and scrolls', async function () {
+      await capOk('browser_navigate', { url: pages.url('/fixtures/vision.html') })
+      await capOk('browser_mouse_move_xy', { x: 30, y: 40 })
+      await capOk('browser_mouse_down', {})
+      assert.match(await capOk('browser_mouse_up', {}), /status "down 30,40; up 30,40; click 0 30,40"/)
+      await capOk('browser_mouse_wheel', { deltaX: 0, deltaY: 500 })
+      const driver = await caps.session.driver()
+      await driver.wait(async () => (await driver.executeScript('return window.scrollY')) > 0, 2000)
+    })
+
+    it('saves the page as a PDF', async function () {
+      await capOk('browser_navigate', { url: pages.url('/fixtures/interactions.html') })
+      const saved = await capOk('browser_pdf_save', {})
+      const file = saved.match(/Saved the page as (.+\.pdf)$/)[1]
+      try {
+        assert.strictEqual(fs.readFileSync(file).subarray(0, 5).toString(), '%PDF-')
+      } finally {
+        fs.rmSync(file, { force: true })
+      }
+    })
+
+    it('sets, reads and deletes cookies', async function () {
+      await capOk('browser_navigate', { url: pages.url('/fixtures/interactions.html') })
+      await capOk('browser_cookie_clear', {})
+      await capOk('browser_cookie_set', { name: 'flavour', value: 'oat', sameSite: 'Lax' })
+      assert.match(await capOk('browser_cookie_get', { name: 'flavour' }), /^flavour=oat \(.*sameSite=Lax/)
+      assert.match(await capOk('browser_cookie_list', {}), /flavour=oat/)
+      assert.strictEqual(await capOk('browser_cookie_list', { path: '/nowhere' }), 'No cookies.')
+      await capOk('browser_cookie_delete', { name: 'flavour' })
+      assert.match(await capOk('browser_cookie_get', { name: 'flavour' }), /No cookie named "flavour"/)
+    })
+
+    it('sets, reads and clears localStorage and sessionStorage', async function () {
+      await capOk('browser_navigate', { url: pages.url('/fixtures/interactions.html') })
+      for (const prefix of ['localstorage', 'sessionstorage']) {
+        await capOk(`browser_${prefix}_clear`, {})
+        await capOk(`browser_${prefix}_set`, { key: 'k', value: 'v' })
+        assert.strictEqual(await capOk(`browser_${prefix}_get`, { key: 'k' }), 'k=v')
+        assert.strictEqual(await capOk(`browser_${prefix}_list`, {}), 'k=v')
+        await capOk(`browser_${prefix}_delete`, { key: 'k' })
+        assert.match(await capOk(`browser_${prefix}_list`, {}), /is empty/)
+      }
+    })
+
+    it('explains when a page has no storage', async function () {
+      await capOk('browser_navigate', { url: 'about:blank' })
+      const result = await caps.call('browser_localstorage_list', {})
+      assert.ok(result.isError)
+      assert.match(result.text, /localStorage is not available on this page/)
+    })
+  })
+
   describe('lifecycle and security', function () {
     it('refuses origins outside the allow list', async function () {
       const restricted = await startMcp({ allowedOrigins: ['https://example.invalid'] })

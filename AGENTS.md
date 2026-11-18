@@ -6,7 +6,8 @@
   - `server.js`: MCP server and tool registration
   - `session.js`: browser lifecycle, options, Grid URL, console capture over BiDi
   - `snapshot.js`: the in-page accessibility walk and the ref table
-  - `tools/`: one file per tool group (`navigate`, `interact`, `inspect`, `bidi`)
+  - `tools/`: one file per tool group (`navigate`, `interact`, `inspect`, `bidi`, `evaluate`, and the `--caps` groups
+    `vision`, `pdf`, `storage`)
 - CLI: `bin/selenium-mcp.js`, flags parsed in `lib/cli.js`
 - Tests: `test/unit/` (no browser) and `test/e2e/` (real browser, in-memory MCP client). `test/fixtures/common/`
   holds copies of pages from the Selenium bindings' shared test pages.
