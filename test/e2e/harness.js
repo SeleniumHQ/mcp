@@ -19,11 +19,13 @@
 
 const fs = require('node:fs')
 const http = require('node:http')
+const os = require('node:os')
 const path = require('node:path')
 
 const { Client } = require('@modelcontextprotocol/sdk/client/index.js')
 const { InMemoryTransport } = require('@modelcontextprotocol/sdk/inMemory.js')
 
+const { Grids } = require('../../lib/grids')
 const { createServer } = require('../../lib/server')
 const { Session } = require('../../lib/session')
 
@@ -74,10 +76,13 @@ async function startPageServer() {
  * Starts an MCP server and a client connected to it in memory, configured
  * from the same environment the bindings' browser tests use.
  *
+ * Saved Grids go to a temporary config file, never the user's own.
+ *
  * @param {!Object=} overrides config overrides
- * @return {!Promise<{client: !Client, session: !Object, call: function(string, !Object=): !Promise<!Object>}>}
+ * @return {!Promise<{client: !Client, session: !Object, grids: !Grids, call: function(string, !Object=): !Promise<!Object>}>}
  */
 async function startMcp(overrides = {}) {
+  const configDir = fs.mkdtempSync(path.join(os.tmpdir(), 'selenium-mcp-config-'))
   const config = {
     browser: process.env.SELENIUM_BROWSER || 'chrome',
     headless: true,
@@ -87,7 +92,8 @@ async function startMcp(overrides = {}) {
     waitTimeoutMs: 2000,
     ...overrides,
   }
-  const { server, session } = createServer(config, { session: new Session(config, sessionHooks()) })
+  const grids = Grids.load(config, { env: {}, cwd: configDir, home: configDir })
+  const { server, session } = createServer(config, { session: new Session(config, sessionHooks()), grids })
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair()
   await server.connect(serverTransport)
   const client = new Client({ name: 'selenium-mcp-test', version: '0' })
@@ -105,10 +111,12 @@ async function startMcp(overrides = {}) {
   return {
     client,
     session,
+    grids,
     call,
     async close() {
       await session.close()
       await client.close()
+      fs.rmSync(configDir, { recursive: true, force: true })
     },
   }
 }

@@ -56,7 +56,14 @@ async function main() {
   }
 
   logToStderr(config.logLevel)
-  const { server, session } = createServer(config)
+  let created
+  try {
+    created = createServer(config)
+  } catch (e) {
+    process.stderr.write(`${e.message}\n`)
+    process.exit(2)
+  }
+  const { server, session } = created
 
   let closing = false
   const shutdown = async () => {

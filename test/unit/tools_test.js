@@ -32,7 +32,7 @@ const { pdfPath } = require('../../lib/tools/pdf')
 const { domainMatches, formatCookie } = require('../../lib/tools/storage')
 const { Key, WebElement } = require('selenium-webdriver')
 
-/** Every tool offered by default, named as @playwright/mcp names them. */
+/** Every tool offered by default: browser_* named as @playwright/mcp names them, selenium_* for Selenium alone. */
 const DEFAULT_TOOLS = [
   'browser_snapshot',
   'browser_click',
@@ -54,6 +54,11 @@ const DEFAULT_TOOLS = [
   'browser_file_upload',
   'browser_resize',
   'browser_network_requests',
+  'selenium_grid_use',
+  'selenium_grid_status',
+  'selenium_grid_sessions',
+  'selenium_grid_queue',
+  'selenium_grid_bug_report',
 ]
 
 /** The plan's v1 gate: the default tool list stays at 25 or fewer. */

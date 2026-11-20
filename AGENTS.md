@@ -6,8 +6,9 @@
   - `server.js`: MCP server and tool registration
   - `session.js`: browser lifecycle, options, Grid URL, console capture over BiDi
   - `snapshot.js`: the in-page accessibility walk and the ref table
-  - `tools/`: one file per tool group (`navigate`, `interact`, `inspect`, `bidi`, `evaluate`, and the `--caps` groups
-    `vision`, `pdf`, `storage`)
+  - `tools/`: one file per tool group (`navigate`, `interact`, `inspect`, `bidi`, `evaluate`, `grid`, and the `--caps`
+    groups `vision`, `pdf`, `storage`)
+  - `grids.js`: saved Grids and the config file; `grid_api.js`: reads a Grid over `/status`, GraphQL and the queue
 - CLI: `bin/selenium-mcp.js`, flags parsed in `lib/cli.js`
 - Tests: `test/unit/` (no browser) and `test/e2e/` (real browser, in-memory MCP client). `test/fixtures/common/`
   holds copies of pages from the Selenium bindings' shared test pages.
@@ -16,7 +17,8 @@
 
 - Install: `NODE_AUTH_TOKEN=<token with read:packages> npm install` (see `.npmrc`)
 - Unit tests: `npm run test:unit`
-- Browser tests: `npm run test:e2e` (needs Chrome)
+- Browser tests: `npm run test:e2e` (needs Chrome). The Grid tests also need Java and
+  `SELENIUM_MCP_TEST_SERVER_JAR=<selenium-server jar>`; they are skipped without it.
 - Lint: `npm run lint`; fix formatting with `npm run format`
 
 ## Rules for tools
@@ -29,6 +31,8 @@
   ("Call browser_snapshot to get fresh refs").
 - Actions return `actionResult(...)` so the agent gets a fresh snapshot without another call.
 - Never write to stdout outside the MCP transport; logs go to stderr.
+- `selenium_grid_*` tools only read a Grid. Destructive tasks (ending sessions, draining or removing nodes, clearing
+  the queue) are left to the person, and tools never guess which node, session or request is meant.
 
 ## Code conventions
 
