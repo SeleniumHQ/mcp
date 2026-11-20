@@ -6,7 +6,8 @@
   - `server.js`: MCP server and tool registration
   - `session.js`: browser lifecycle, options, Grid URL, console capture over BiDi
   - `snapshot.js`: the in-page accessibility walk and the ref table
-  - `tools/`: one file per tool group (`navigate`, `interact`, `inspect`, `bidi`, `evaluate`, `grid`)
+  - `tools/`: one file per tool group (`navigate`, `interact`, `inspect`, `bidi`, `evaluate`, `grid`, and the `--caps`
+    groups `vision`, `pdf`, `storage`)
   - `grids.js`: saved Grids and the config file; `grid_api.js`: reads a Grid over `/status`, GraphQL and the queue
 - CLI: `bin/selenium-mcp.js`, flags parsed in `lib/cli.js`
 - Tests: `test/unit/` (no browser) and `test/e2e/` (real browser, in-memory MCP client). `test/fixtures/common/`
