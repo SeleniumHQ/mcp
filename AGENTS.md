@@ -24,7 +24,8 @@
 - Match `@playwright/mcp` names, arguments and semantics wherever the operation is the same. `selenium_*` is only for
   what Selenium alone can offer.
 - The tool list is sent to the agent on every turn. Keep descriptions short; `test/unit/tools_test.js` enforces the
-  token budget and the exact tool set.
+  token budget and the exact tool set. The default list stays at 25 tools or fewer; opt-in groups (`--caps`,
+  `--allow-evaluate`) do not count toward that cap.
 - Tools take refs, never selectors. Errors meant for the agent are `ToolError`s with a next step in the message
   ("Call browser_snapshot to get fresh refs").
 - Actions return `actionResult(...)` so the agent gets a fresh snapshot without another call.
