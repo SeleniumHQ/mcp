@@ -49,7 +49,6 @@ const DEFAULT_TOOLS = [
   'browser_handle_dialog',
   'browser_tabs',
   'browser_close',
-  'browser_install',
   'browser_drag',
   'browser_file_upload',
   'browser_resize',
@@ -61,7 +60,10 @@ const DEFAULT_TOOLS = [
   'selenium_grid_bug_report',
 ]
 
-/** The plan's v1 gate: the default tool list stays at 25 or fewer. */
+/**
+ * The v1 gate: the default tool list stays at 25 or fewer. Groups enabled with
+ * --caps and --allow-evaluate are opt-in, so they do not count against it.
+ */
 const MAX_DEFAULT_TOOLS = 25
 
 /** Agents pay for the tool list on every turn; the plan caps it. */

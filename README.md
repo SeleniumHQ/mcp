@@ -83,7 +83,6 @@ over.
 | `browser_resize`           | Resize the browser window.                                           |
 | `browser_tabs`             | List, open, select or close tabs.                                    |
 | `browser_close`            | Close the browser; the next call starts a new one.                   |
-| `browser_install`          | Have Selenium Manager install the browser and driver.                |
 | `browser_evaluate`         | Run a JavaScript function on the page or a ref. Only with `--allow-evaluate`. |
 
 Every action returns the page's URL, title and a fresh snapshot, so the agent rarely needs to ask for one.
@@ -100,7 +99,9 @@ These read a Selenium Grid (see [Selenium Grid](#selenium-grid)):
 
 ### Optional tools
 
-Each group is listed only when `--caps` names it, since every agent pays for every listed tool on every turn.
+Each group is listed only when `--caps` names it, since every agent pays for every listed tool on every turn. The
+default list stays at 25 tools or fewer; these groups and `browser_evaluate` are opt-in, so they do not count toward
+that cap.
 
 | Group     | Tools                                                                                               |
 | --------- | --------------------------------------------------------------------------------------------------- |
