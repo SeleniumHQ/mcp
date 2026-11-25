@@ -34,12 +34,13 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
+      # The latest release, so the tests follow the Grid people are most likely to run.
       - name: Download Selenium Grid
         run: |
-          curl -sSLf -o "$RUNNER_TEMP/selenium-server.jar" \
-            "https://github.com/SeleniumHQ/selenium/releases/download/selenium-${SELENIUM_GRID_VERSION}/selenium-server-${SELENIUM_GRID_VERSION}.jar"
+          gh release download --repo SeleniumHQ/selenium --pattern 'selenium-server-[0-9]*.jar' \
+            --output "$RUNNER_TEMP/selenium-server.jar"
         env:
-          SELENIUM_GRID_VERSION: 4.52.0
+          GH_TOKEN: ${{ github.token }}
       - name: Install
         run: npm install --no-audit --no-fund
         env:
