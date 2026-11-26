@@ -1,0 +1,353 @@
+{
+  "value": {
+    "nodes": [
+      {
+        "id": "a0c2c542-476f-42c5-96b7-c5f9f848579d",
+        "slots": [
+          {
+            "id": {
+              "hostId": "a0c2c542-476f-42c5-96b7-c5f9f848579d",
+              "id": "71505a27-26d6-4bc1-8c94-a75e15e1fabb"
+            },
+            "lastStarted": "2026-11-17T12:03:45.369628641Z",
+            "session": {
+              "capabilities": {
+                "acceptInsecureCerts": false,
+                "browserName": "chrome",
+                "browserVersion": "153.0.8010.12",
+                "chrome": {
+                  "chromedriverVersion": "147.0.7727.24 (09d377d9438dc95267369f74a073acd81bdde38f-refs/branch-heads/7727@{#1413})",
+                  "userDataDir": "/tmp/org.chromium.Chromium.scoped_dir.ZBir52"
+                },
+                "fedcm:accounts": true,
+                "goog:chromeOptions": {
+                  "debuggerAddress": "localhost:34085"
+                },
+                "goog:processID": 1024,
+                "networkConnectionEnabled": false,
+                "pageLoadStrategy": "normal",
+                "platformName": "linux",
+                "proxy": {},
+                "se:bidiEnabled": false,
+                "se:cdp": "ws://localhost:4444/session/26aac58b7ac337945a59f967e13c009e/se/cdp",
+                "se:cdpVersion": "153.0.8010.12",
+                "setWindowRect": true,
+                "strictFileInteractability": false,
+                "timeouts": {
+                  "implicit": 0,
+                  "pageLoad": 300000,
+                  "script": 30000
+                },
+                "unhandledPromptBehavior": "dismiss and notify",
+                "webauthn:extension:credBlob": true,
+                "webauthn:extension:largeBlob": true,
+                "webauthn:extension:minPinLength": true,
+                "webauthn:extension:prf": true,
+                "webauthn:virtualAuthenticators": true
+              },
+              "sessionId": "26aac58b7ac337945a59f967e13c009e",
+              "start": "2026-11-17T12:03:45.369628641Z",
+              "stereotype": {
+                "browserName": "chrome",
+                "platformName": "linux"
+              },
+              "uri": "http://192.0.2.2:5555"
+            },
+            "stereotype": {
+              "browserName": "chrome",
+              "platformName": "linux"
+            }
+          },
+          {
+            "id": {
+              "hostId": "a0c2c542-476f-42c5-96b7-c5f9f848579d",
+              "id": "2a45258e-b566-44b9-94a2-435e4837e693"
+            },
+            "lastStarted": "1970-01-01T00:00:00Z",
+            "session": null,
+            "stereotype": {
+              "browserName": "firefox",
+              "platformName": "linux"
+            }
+          },
+          {
+            "id": {
+              "hostId": "a0c2c542-476f-42c5-96b7-c5f9f848579d",
+              "id": "1111c95d-14d0-4bbd-96d2-1082d2878a4f"
+            },
+            "lastStarted": "2026-11-17T12:02:34.911737223Z",
+            "session": {
+              "capabilities": {
+                "acceptInsecureCerts": false,
+                "browserName": "chrome",
+                "browserVersion": "153.0.8010.12",
+                "chrome": {
+                  "chromedriverVersion": "147.0.7727.24 (09d377d9438dc95267369f74a073acd81bdde38f-refs/branch-heads/7727@{#1413})",
+                  "userDataDir": "/tmp/org.chromium.Chromium.scoped_dir.dUGash"
+                },
+                "fedcm:accounts": true,
+                "goog:chromeOptions": {
+                  "debuggerAddress": "localhost:43481"
+                },
+                "goog:processID": 691,
+                "networkConnectionEnabled": false,
+                "pageLoadStrategy": "normal",
+                "platformName": "linux",
+                "proxy": {},
+                "se:bidiEnabled": false,
+                "se:cdp": "ws://localhost:4444/session/5b56b4d899078f6937edfb60e920c75f/se/cdp",
+                "se:cdpVersion": "153.0.8010.12",
+                "se:name": "probe",
+                "setWindowRect": true,
+                "strictFileInteractability": false,
+                "timeouts": {
+                  "implicit": 0,
+                  "pageLoad": 300000,
+                  "script": 30000
+                },
+                "unhandledPromptBehavior": "dismiss and notify",
+                "webauthn:extension:credBlob": true,
+                "webauthn:extension:largeBlob": true,
+                "webauthn:extension:minPinLength": true,
+                "webauthn:extension:prf": true,
+                "webauthn:virtualAuthenticators": true
+              },
+              "sessionId": "5b56b4d899078f6937edfb60e920c75f",
+              "start": "2026-11-17T12:02:34.911737223Z",
+              "stereotype": {
+                "browserName": "chrome",
+                "platformName": "linux"
+              },
+              "uri": "http://192.0.2.2:5555"
+            },
+            "stereotype": {
+              "browserName": "chrome",
+              "platformName": "linux"
+            }
+          },
+          {
+            "id": {
+              "hostId": "a0c2c542-476f-42c5-96b7-c5f9f848579d",
+              "id": "772bd248-e571-489a-8ef1-5270d7886030"
+            },
+            "lastStarted": "1970-01-01T00:00:00Z",
+            "session": null,
+            "stereotype": {
+              "browserName": "MicrosoftEdge",
+              "platformName": "linux"
+            }
+          },
+          {
+            "id": {
+              "hostId": "a0c2c542-476f-42c5-96b7-c5f9f848579d",
+              "id": "1bf1b8d4-1139-4f15-8113-d9785069379d"
+            },
+            "lastStarted": "1970-01-01T00:00:00Z",
+            "session": null,
+            "stereotype": {
+              "browserName": "MicrosoftEdge",
+              "platformName": "linux"
+            }
+          },
+          {
+            "id": {
+              "hostId": "a0c2c542-476f-42c5-96b7-c5f9f848579d",
+              "id": "d83f3d4e-00c1-4de0-8004-c6424250f2c9"
+            },
+            "lastStarted": "1970-01-01T00:00:00Z",
+            "session": null,
+            "stereotype": {
+              "browserName": "firefox",
+              "platformName": "linux"
+            }
+          }
+        ],
+        "heartbeatPeriod": 60000,
+        "uri": "http://192.0.2.2:5555",
+        "osInfo": {
+          "arch": "amd64",
+          "name": "Linux",
+          "version": "6.18.44-fc-v553"
+        },
+        "maxSessions": 2,
+        "availability": "UP",
+        "version": "4.52.0 (revision 5b37fd4 5b37fd4d98c08d6a43a0790417f91b8f6f32fb5c)",
+        "sessionTimeout": 300000
+      },
+      {
+        "id": "e25013a9-5bf0-4ca8-8209-f1a4decd0518",
+        "slots": [
+          {
+            "id": {
+              "hostId": "e25013a9-5bf0-4ca8-8209-f1a4decd0518",
+              "id": "4535a628-88fa-4b0f-840b-718bf002f910"
+            },
+            "lastStarted": "2026-11-17T12:03:46.129289467Z",
+            "session": {
+              "capabilities": {
+                "acceptInsecureCerts": false,
+                "browserName": "chrome",
+                "browserVersion": "153.0.8010.12",
+                "chrome": {
+                  "chromedriverVersion": "147.0.7727.24 (09d377d9438dc95267369f74a073acd81bdde38f-refs/branch-heads/7727@{#1413})",
+                  "userDataDir": "/tmp/org.chromium.Chromium.scoped_dir.14wQ33"
+                },
+                "fedcm:accounts": true,
+                "goog:chromeOptions": {
+                  "debuggerAddress": "localhost:36205"
+                },
+                "goog:processID": 1171,
+                "networkConnectionEnabled": false,
+                "pageLoadStrategy": "normal",
+                "platformName": "linux",
+                "proxy": {},
+                "se:bidiEnabled": false,
+                "se:cdp": "ws://localhost:4444/session/19577c8d5d20e0ddd692a2ac0c5ecb7d/se/cdp",
+                "se:cdpVersion": "153.0.8010.12",
+                "setWindowRect": true,
+                "strictFileInteractability": false,
+                "timeouts": {
+                  "implicit": 0,
+                  "pageLoad": 300000,
+                  "script": 30000
+                },
+                "unhandledPromptBehavior": "dismiss and notify",
+                "webauthn:extension:credBlob": true,
+                "webauthn:extension:largeBlob": true,
+                "webauthn:extension:minPinLength": true,
+                "webauthn:extension:prf": true,
+                "webauthn:virtualAuthenticators": true
+              },
+              "sessionId": "19577c8d5d20e0ddd692a2ac0c5ecb7d",
+              "start": "2026-11-17T12:03:46.129289467Z",
+              "stereotype": {
+                "browserName": "chrome",
+                "platformName": "linux"
+              },
+              "uri": "http://192.0.2.2:5556"
+            },
+            "stereotype": {
+              "browserName": "chrome",
+              "platformName": "linux"
+            }
+          },
+          {
+            "id": {
+              "hostId": "e25013a9-5bf0-4ca8-8209-f1a4decd0518",
+              "id": "a1675aac-fc81-48a4-adc5-fb710828ae56"
+            },
+            "lastStarted": "1970-01-01T00:00:00Z",
+            "session": null,
+            "stereotype": {
+              "browserName": "MicrosoftEdge",
+              "platformName": "linux"
+            }
+          },
+          {
+            "id": {
+              "hostId": "e25013a9-5bf0-4ca8-8209-f1a4decd0518",
+              "id": "d2dfb28b-9c91-4d4e-9f2a-872cdc494f0c"
+            },
+            "lastStarted": "2026-11-17T12:03:46.124056971Z",
+            "session": {
+              "capabilities": {
+                "acceptInsecureCerts": false,
+                "browserName": "chrome",
+                "browserVersion": "153.0.8010.12",
+                "chrome": {
+                  "chromedriverVersion": "147.0.7727.24 (09d377d9438dc95267369f74a073acd81bdde38f-refs/branch-heads/7727@{#1413})",
+                  "userDataDir": "/tmp/org.chromium.Chromium.scoped_dir.oQr5JM"
+                },
+                "fedcm:accounts": true,
+                "goog:chromeOptions": {
+                  "debuggerAddress": "localhost:37679"
+                },
+                "goog:processID": 1170,
+                "networkConnectionEnabled": false,
+                "pageLoadStrategy": "normal",
+                "platformName": "linux",
+                "proxy": {},
+                "se:bidiEnabled": false,
+                "se:cdp": "ws://localhost:4444/session/02ac43d474af89a39764794c423cb912/se/cdp",
+                "se:cdpVersion": "153.0.8010.12",
+                "setWindowRect": true,
+                "strictFileInteractability": false,
+                "timeouts": {
+                  "implicit": 0,
+                  "pageLoad": 300000,
+                  "script": 30000
+                },
+                "unhandledPromptBehavior": "dismiss and notify",
+                "webauthn:extension:credBlob": true,
+                "webauthn:extension:largeBlob": true,
+                "webauthn:extension:minPinLength": true,
+                "webauthn:extension:prf": true,
+                "webauthn:virtualAuthenticators": true
+              },
+              "sessionId": "02ac43d474af89a39764794c423cb912",
+              "start": "2026-11-17T12:03:46.124056971Z",
+              "stereotype": {
+                "browserName": "chrome",
+                "platformName": "linux"
+              },
+              "uri": "http://192.0.2.2:5556"
+            },
+            "stereotype": {
+              "browserName": "chrome",
+              "platformName": "linux"
+            }
+          },
+          {
+            "id": {
+              "hostId": "e25013a9-5bf0-4ca8-8209-f1a4decd0518",
+              "id": "97b4a94e-4f92-4c1f-ac20-9c800eab94f5"
+            },
+            "lastStarted": "1970-01-01T00:00:00Z",
+            "session": null,
+            "stereotype": {
+              "browserName": "firefox",
+              "platformName": "linux"
+            }
+          },
+          {
+            "id": {
+              "hostId": "e25013a9-5bf0-4ca8-8209-f1a4decd0518",
+              "id": "1dbdc9d4-3c65-4e09-90b5-07af9c299a84"
+            },
+            "lastStarted": "1970-01-01T00:00:00Z",
+            "session": null,
+            "stereotype": {
+              "browserName": "MicrosoftEdge",
+              "platformName": "linux"
+            }
+          },
+          {
+            "id": {
+              "hostId": "e25013a9-5bf0-4ca8-8209-f1a4decd0518",
+              "id": "3856f26b-dba3-4714-bde0-dfc5f4412337"
+            },
+            "lastStarted": "1970-01-01T00:00:00Z",
+            "session": null,
+            "stereotype": {
+              "browserName": "firefox",
+              "platformName": "linux"
+            }
+          }
+        ],
+        "heartbeatPeriod": 60000,
+        "uri": "http://192.0.2.2:5556",
+        "osInfo": {
+          "arch": "amd64",
+          "version": "6.18.44-fc-v553",
+          "name": "Linux"
+        },
+        "maxSessions": 2,
+        "availability": "UP",
+        "version": "4.52.0 (revision 5b37fd4 5b37fd4d98c08d6a43a0790417f91b8f6f32fb5c)",
+        "sessionTimeout": 300000
+      }
+    ],
+    "ready": false,
+    "message": "Selenium Grid not ready."
+  }
+}

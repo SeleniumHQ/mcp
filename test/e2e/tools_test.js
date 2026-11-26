@@ -52,7 +52,7 @@ describe('selenium-mcp tools', function () {
 
   it('lists the tools without starting a browser', async function () {
     const { tools } = await mcp.client.listTools()
-    assert.strictEqual(tools.length, 19)
+    assert.strictEqual(tools.length, 24)
     assert.strictEqual(mcp.session.isOpen, false)
   })
 

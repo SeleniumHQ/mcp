@@ -29,6 +29,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+      # Java runs the Selenium Grid that the selenium_grid_* tools are tested against.
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      # The latest release, so the tests follow the Grid people are most likely to run.
+      - name: Download Selenium Grid
+        run: |
+          gh release download --repo SeleniumHQ/selenium --pattern 'selenium-server-[0-9]*.jar' \
+            --output "$RUNNER_TEMP/selenium-server.jar"
+        env:
+          GH_TOKEN: ${{ github.token }}
       - name: Install
         run: npm install --no-audit --no-fund
         env:
@@ -37,5 +49,8 @@ jobs:
         run: npm run lint
       - name: Unit tests
         run: npm run test:unit
-      - name: Browser tests (Chrome)
+      - name: Browser tests (Chrome, and Selenium Grid)
         run: npm run test:e2e
+        env:
+          SELENIUM_MCP_TEST_SERVER_JAR: ${{ runner.temp }}/selenium-server.jar
+          SELENIUM_MCP_TEST_NODE_ARGS: --selenium-manager true

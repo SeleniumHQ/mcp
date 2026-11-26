@@ -1,0 +1,21 @@
+{
+  "value": [
+    {
+      "requestId": "6009a8e5-4098-4bb3-bc47-8fa7f49a72e0",
+      "capabilities": [
+        {
+          "browserName": "chrome",
+          "se:name": "waiting"
+        }
+      ]
+    },
+    {
+      "requestId": "da9e6d15-bf09-497d-8860-5483e0ea1004",
+      "capabilities": [
+        {
+          "browserName": "safari"
+        }
+      ]
+    }
+  ]
+}
