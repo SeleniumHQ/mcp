@@ -117,7 +117,9 @@ describe('selenium_grid_* tools on a real Grid', function () {
   it('starts the browser on the saved Grid and lists its session', async function () {
     await ok('browser_console_messages')
     const text = await ok('selenium_grid_sessions')
-    assert.match(text, /: 1\n- [0-9a-f]+ "selenium-mcp": chrome/)
+    // The browserName the Grid reports, which for Edge is not the --browser name.
+    const reported = { chrome: 'chrome', edge: 'MicrosoftEdge', firefox: 'firefox' }[mcp.session.config.browser]
+    assert.match(text, new RegExp(`: 1\\n- [0-9a-f-]+ "selenium-mcp": ${reported} `))
     assert.ok(text.includes(`${url}/ui/#/session/`))
   })
 

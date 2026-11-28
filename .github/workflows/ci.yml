@@ -54,3 +54,45 @@ jobs:
         env:
           SELENIUM_MCP_TEST_SERVER_JAR: ${{ runner.temp }}/selenium-server.jar
           SELENIUM_MCP_TEST_NODE_ARGS: --selenium-manager true
+
+  # Lint and unit tests do not depend on the browser, so this job only runs the browser tests.
+  browsers:
+    name: Browser tests (${{ matrix.browser }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        # ubuntu-latest comes with both browsers; Selenium Manager finds them and their drivers.
+        browser: [edge, firefox]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Download Selenium Grid
+        run: |
+          gh release download --repo SeleniumHQ/selenium --pattern 'selenium-server-[0-9]*.jar' \
+            --output "$RUNNER_TEMP/selenium-server.jar"
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Install
+        run: npm install --no-audit --no-fund
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Ubuntu 24.04 restricts unprivileged user namespaces, and the runner's Edge
+      # falls back to a setuid sandbox helper that is not set up, so Edge aborts
+      # at startup. Lifting the restriction keeps Edge's own sandbox on.
+      - name: Let Edge start its sandbox
+        if: matrix.browser == 'edge'
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+      - name: Browser tests (${{ matrix.browser }}, and Selenium Grid)
+        run: npm run test:e2e
+        env:
+          SELENIUM_BROWSER: ${{ matrix.browser }}
+          SELENIUM_MCP_TEST_SERVER_JAR: ${{ runner.temp }}/selenium-server.jar
+          SELENIUM_MCP_TEST_NODE_ARGS: --selenium-manager true
