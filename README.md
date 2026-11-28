@@ -7,12 +7,12 @@ snapshot with element refs, and acts on those refs. It never has to write or gue
 It is the Selenium bindings exposed as tools, not a test runner. Selenium Manager comes with the bindings, so there is
 no driver to install.
 
-> **Status: v1 in progress.** Chrome, headless by default, over stdio, one browser per server. See
+> **Status: v1 in progress.** Chrome, Edge or Firefox, headless by default, over stdio, one browser per server. See
 > [What it covers](#what-it-covers).
 
 ## Setup
 
-You need Node.js `^22.23.4 || ^24.22.1 || >= 26.12.1` and Chrome. Then add the server to your agent:
+You need Node.js `^22.23.4 || ^24.22.1 || >= 26.12.1` and Chrome, Edge or Firefox. Then add the server to your agent:
 
 **Claude Code**
 
@@ -44,7 +44,7 @@ Any other MCP client: run `npx @selenium/mcp@latest` as a stdio server.
 
 | Flag                       | Meaning                                                                 |
 | -------------------------- | ----------------------------------------------------------------------- |
-| `--browser <name>`         | `chrome` (default). `edge` and `firefox` start but are not yet tested.  |
+| `--browser <name>`         | `chrome` (default), `edge` or `firefox`.                                |
 | `--headless` / `--headed`  | Run headless (the default) or show the window.                          |
 | `--grid <url\|name>`       | Run the browser on a Selenium Grid instead of locally: a URL, or a Grid saved in the config file. |
 | `--config <path>`          | Config file of saved Grids (see [Selenium Grid](#selenium-grid)).      |
@@ -160,8 +160,9 @@ so people can tell them apart in the Grid UI.
 
 ## What it covers
 
-Chrome, headless, stdio, and the tools above. Not yet: Firefox and Edge under test, request interception
-(`--caps network`), HTTP transport, more than one session, and `selenium_doctor`. Those come in later releases.
+Chrome, Edge and Firefox, headless, stdio, and the tools above; every tool is tested against all three browsers. Not
+yet: request interception (`--caps network`), HTTP transport, more than one session, and `selenium_doctor`. Those come
+in later releases.
 
 ## Security
 
@@ -185,6 +186,7 @@ npm, the dependency points at the nightly build in GitHub Packages, so installin
 NODE_AUTH_TOKEN=<token> npm install
 npm run test:unit   # unit tests, no browser
 npm run test:e2e    # every tool against real Chrome
+SELENIUM_BROWSER=firefox npm run test:e2e   # or edge
 npm run lint        # eslint and prettier
 ```
 

@@ -142,7 +142,7 @@ function sessionHooks() {
   const chrome = require('selenium-webdriver/chrome')
   return {
     buildDriver(options) {
-      const builder = new Builder().withCapabilities(options)
+      const builder = new Builder().disableEnvironmentOverrides().withCapabilities(options)
       if (pinnedChrome) {
         options.setChromeBinaryPath(locate(pinnedChrome))
         options.addArguments('disable-dev-shm-usage', 'no-sandbox')

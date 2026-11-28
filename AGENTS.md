@@ -17,8 +17,8 @@
 
 - Install: `NODE_AUTH_TOKEN=<token with read:packages> npm install` (see `.npmrc`)
 - Unit tests: `npm run test:unit`
-- Browser tests: `npm run test:e2e` (needs Chrome). The Grid tests also need Java and
-  `SELENIUM_MCP_TEST_SERVER_JAR=<selenium-server jar>`; they are skipped without it.
+- Browser tests: `npm run test:e2e` (needs Chrome; `SELENIUM_BROWSER=edge` or `firefox` runs them there). The Grid
+  tests also need Java and `SELENIUM_MCP_TEST_SERVER_JAR=<selenium-server jar>`; they are skipped without it.
 - Lint: `npm run lint`; fix formatting with `npm run format`
 
 ## Rules for tools
