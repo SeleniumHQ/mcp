@@ -84,16 +84,12 @@ jobs:
         run: npm install --no-audit --no-fund
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # TEMPORARY: find out why Edge exits at startup on the runner.
-      - name: Diagnose Edge
+      # Ubuntu 24.04 restricts unprivileged user namespaces, and the runner's Edge
+      # falls back to a setuid sandbox helper that is not set up, so Edge aborts
+      # at startup. Lifting the restriction keeps Edge's own sandbox on.
+      - name: Let Edge start its sandbox
         if: matrix.browser == 'edge'
-        continue-on-error: true
-        run: |
-          which microsoft-edge msedgedriver || true
-          ls -l "$(readlink -f "$(which microsoft-edge)")" /etc/apparmor.d/ | grep -i -E 'edge|chrom' || true
-          sysctl kernel.apparmor_restrict_unprivileged_userns || true
-          microsoft-edge --version || true
-          timeout 30 microsoft-edge --headless=new --no-first-run --dump-dom about:blank 2>&1 | tail -30 || true
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
       - name: Browser tests (${{ matrix.browser }}, and Selenium Grid)
         run: npm run test:e2e
         env:
